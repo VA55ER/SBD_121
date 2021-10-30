@@ -1,4 +1,9 @@
-﻿#include<iostream>
+﻿// Function templates
+//template<typename T>
+
+
+
+#include<iostream>
 //#include<time.h>	//Библиотека, написанная на языке C
 #include<ctime>		//Такая же библиотека, написанная на языке C++
 using namespace std;
@@ -8,9 +13,13 @@ const unsigned int COLS = 5;
 
 void FillRand(int arr[], const unsigned int n, int minRand = 0, int maxRand = 100);	//Заполняет массив случайными числами
 void FillRand(double arr[], const unsigned int n, int minRand = 0, int maxRand = 100);	//Заполняет массив случайными числами
-void Print(int arr[], const unsigned int n);
-void Print(double arr[], const unsigned int n);
-void Print(int arr[ROWS][COLS], const unsigned int ROWS, const unsigned int COLS);
+template<typename T>void Print(T arr[], const unsigned int n);
+//void Print(double arr[], const unsigned int n);
+template<typename T>
+void Print(T arr[ROWS][COLS], const unsigned int ROWS, const unsigned int COLS);
+
+template<typename T>T Sum(T arr[], const unsigned int n);
+
 
 void main()
 {
@@ -23,6 +32,8 @@ void main()
 	//cout << "Введите максимальное случайное число: "; cin >> maxRand;
 	FillRand(arr, n, 200,300);
 	Print(arr, n);
+	cout <<"Сумма элементов массива:  " << Sum(arr, n) << endl;
+	
 	double brr[n];
 	FillRand(brr, n);
 	Print(brr, n);
@@ -55,7 +66,7 @@ void FillRand(double arr[], const unsigned int n, int minRand, int maxRand)
 	}
 }
 
-void Print(int arr[], const unsigned int n)
+template<typename T>void Print(T arr[], const unsigned int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -63,15 +74,11 @@ void Print(int arr[], const unsigned int n)
 	}
 	cout << endl;
 }
-void Print(double arr[], const unsigned int n)
-{
-	for (int i = 0; i < n; i++)
-	{
-		cout << arr[i] << "\t";
-	}
-	cout << endl;
-}
-void Print(int arr[ROWS][COLS], const unsigned int ROWS, const unsigned int COLS)
+
+
+template<typename T>
+
+void Print(T arr[ROWS][COLS], const unsigned int ROWS, const unsigned int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
@@ -81,4 +88,14 @@ void Print(int arr[ROWS][COLS], const unsigned int ROWS, const unsigned int COLS
 		}
 		cout << endl;
 	}
+}
+
+template<typename T>T Sum(T arr[], const unsigned int n)
+{
+	T sum = T();
+	for (int i = 0; i < n; i++)
+	{
+		sum += arr[i];
+	}
+	return sum;
 }
